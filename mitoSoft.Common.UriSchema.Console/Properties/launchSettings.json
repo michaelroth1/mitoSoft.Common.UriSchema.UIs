@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "RegisterUri": {
+      "commandName": "Project",
+      "commandLineArgs": "/p \"Test.exe\" /s homeNet2 /o"
+    }
+  }
+}

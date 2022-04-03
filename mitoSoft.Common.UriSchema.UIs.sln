@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.32126.317
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mitoSoft.Common.UriSchema.Console", "mitoSoft.Common.UriSchema.Console\mitoSoft.Common.UriSchema.Console.csproj", "{483FADF2-2FBA-4391-892F-87AE7D94E162}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "mitoSoft.Common.UriSchema.UI", "mitoSoft.Common.UriSchema.UI\mitoSoft.Common.UriSchema.UI.csproj", "{C7CE40A8-D326-4F3E-B226-A47ED4533242}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{483FADF2-2FBA-4391-892F-87AE7D94E162}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{483FADF2-2FBA-4391-892F-87AE7D94E162}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{483FADF2-2FBA-4391-892F-87AE7D94E162}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{483FADF2-2FBA-4391-892F-87AE7D94E162}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C7CE40A8-D326-4F3E-B226-A47ED4533242}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C7CE40A8-D326-4F3E-B226-A47ED4533242}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C7CE40A8-D326-4F3E-B226-A47ED4533242}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C7CE40A8-D326-4F3E-B226-A47ED4533242}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {67E20B6B-DB40-4E88-AF90-D3515C3315BF}
+	EndGlobalSection
+EndGlobal
