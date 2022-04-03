@@ -7,7 +7,12 @@
     <Nullable>enable</Nullable>
     <UseWindowsForms>true</UseWindowsForms>
     <ImplicitUsings>enable</ImplicitUsings>
+    <ApplicationIcon>mitoSoft.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="mitoSoft.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="mitoSoft.Common.UriSchema" Version="1.0.1" />

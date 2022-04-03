@@ -64,7 +64,7 @@
             foreach (var argName in argNames)
             {
                 var i = this._args?.ToList().IndexOf(argName);
-                if (i.HasValue)
+                if (i.HasValue && i >= 0)
                 {
                     idx = i.Value;
                     break;
