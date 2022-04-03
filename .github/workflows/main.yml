@@ -32,7 +32,7 @@ jobs:
       
       - uses: vimtor/action-zip@v1
         with:
-          files:  ${{ env.PROJECT_FOLDER }}/bin/Release/net6.0-windows/publish/
+          files:  ${{ env.PROJECT_FOLDER }}/bin/Release/net6.0-windows/win-x64/publish/
           recursive: true
           dest:  ${{ env.ZIP_FILENAME }}
           
