@@ -55,5 +55,8 @@ jobs:
       - uses: csexton/release-asset-action@v2
         with:
            github-token: ${{ secrets.RELEASE_TOKEN }}
-           pattern: ${{ github.workspace }}/${{ env.ZIP_FILENAME }}
+           files: |
+             ${{ github.workspace }}/${{ env.ZIP_FILENAME }}
+             ${{ github.workspace }}/UriSchemaConsole.zip
+           #pattern: ${{ github.workspace }}/${{ env.ZIP_FILENAME }}
            release-url: ${{ steps.create_release.outputs.upload_url }}
