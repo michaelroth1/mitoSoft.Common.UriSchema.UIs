@@ -1,0 +1,50 @@
+# This workflow builds a *.zip Folder of the project executable
+# either selfcontained or not and published it together with release notes 
+# whenever a new tag is created.
+
+name: Build Release Zip
+
+on:
+  push:
+    tags:
+      - "v*"
+env:
+  PROJECT_FILE: mitoSoft.Common.UriSchema.UI.csproj
+  PROJECT_FOLDER: mitoSoft.Common.UriSchema.UI
+  ZIP_FILENAME: UriSchema.zip
+  
+jobs:
+  deploys:
+    runs-on: windows-latest
+    steps:     
+      - uses: actions/checkout@v2
+      
+      - uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: 5.0.x
+      
+      #- run: dotnet restore ${{ env.PROJECT_FOLDER }}/${{ env.PROJECT_FILE }}
+      
+      #- run: dotnet build ${{ env.PROJECT_FOLDER }}/${{ env.PROJECT_FILE }} -c Release --no-restore
+      
+      #- run: dotnet publish ${{ env.PROJECT_FOLDER }}/${{ env.PROJECT_FILE }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
+      - run: dotnet publish ${{ env.PROJECT_FOLDER }}/${{ env.PROJECT_FILE }} -c Release
+      
+      - uses: vimtor/action-zip@v1
+        with:
+          files:  ${{ env.PROJECT_FOLDER }}/bin/Release/net5.0/publish/
+          recursive: true
+          dest:  ${{ env.ZIP_FILENAME }}
+          
+      - name: Build Release
+        id: create_release
+        uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.RELEASE_TOKEN }}"
+          prerelease: false
+                  
+      - uses: csexton/release-asset-action@v2
+        with:
+           github-token: ${{ secrets.RELEASE_TOKEN }}
+           pattern: ${{ github.workspace }}/${{ env.ZIP_FILENAME }}
+           release-url: ${{ steps.create_release.outputs.upload_url }}
