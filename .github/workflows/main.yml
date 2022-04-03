@@ -11,7 +11,7 @@ on:
 env:
   PROJECT_FILE: mitoSoft.Common.UriSchema.UI.csproj
   PROJECT_FOLDER: mitoSoft.Common.UriSchema.UI
-  ZIP_FILENAME: UriSchema.zip
+  ZIP_FILENAME: UriSchemaUI.zip
   
 jobs:
   deploys:
@@ -29,12 +29,21 @@ jobs:
       
       #- run: dotnet publish ${{ env.PROJECT_FOLDER }}/${{ env.PROJECT_FILE }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true --no-build
       - run: dotnet publish ${{ env.PROJECT_FOLDER }}/${{ env.PROJECT_FILE }} -c Release --self-contained -r win-x64 -p:PublishSingleFile=true
+      - run: dotnet publish mitoSoft.Common.UriSchema.Console/mitoSoft.Common.UriSchema.Console.csproj -c Release --self-contained -r win-x64 -p:PublishSingleFile=true
       
       - uses: vimtor/action-zip@v1
+        name: Zip UI
         with:
           files:  ${{ env.PROJECT_FOLDER }}/bin/Release/net6.0-windows/win-x64/publish/
           recursive: true
           dest:  ${{ env.ZIP_FILENAME }}
+          
+      - uses: vimtor/action-zip@v1
+        name: Zip Console
+        with:
+          files:  mitoSoft.Common.UriSchema.Console/bin/Release/net6.0/win-x64/publish/
+          recursive: true
+          dest:  UriSchemaConsole.zip
           
       - name: Build Release
         id: create_release
