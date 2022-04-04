@@ -42,7 +42,7 @@ namespace mitoSoft.Common.UriSchema.UI
                 return;
             }
 
-            RegistryHelper.RegisterScheme(schema, path);
+            RegistryHelper.RegisterScheme(schema, path, this.checkBox1.Checked);
 
             MessageBox.Show("Successfully registered", "mitoSoft");
         }
