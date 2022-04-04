@@ -2,7 +2,7 @@
   "profiles": {
     "RegisterUri": {
       "commandName": "Project",
-      "commandLineArgs": "-h" // "-p \"Test.exe\" -s homeNet2 --o"
+      "commandLineArgs": "-p \"Test.exe\" -s homeNet2 --o"
     }
   }
 }

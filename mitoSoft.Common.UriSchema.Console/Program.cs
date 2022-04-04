@@ -1,39 +1,43 @@
-﻿//https://www.meziantou.net/registering-an-application-to-a-uri-scheme-using-net.htm
-using mitoSoft.Common.UriSchema;
-using mitoSoft.Common.UriSchema.Console;
+﻿using mitoSoft.Common.UriSchema;
+using System.CommandLine;
 
-#pragma warning disable CA1416 // Validate platform compatibility
+// Create some options:
+var pathArg = new Option<string>(new string[] { "-path", "-p" }, "Enter the executable file.");
+pathArg.IsRequired = true;
+var schemaArg = new Option<string>(new string[] { "-schema", "-s" }, "Enter the Uri schema.");
+schemaArg.IsRequired = true;
+var updateArg = new Option<bool>(new string[] { "--override", "--o" }, () => false, "Enter the Uri schema.");
 
-try
+// Add the options to a root command:
+var rootCommand = new RootCommand
 {
-    var help = (new ArgHelper(args)).IsAvailable("-help", "/help", "--help", "-h", "--h");
-    if (help || args?.Count() == 0)
-    {
-        Console.WriteLine("Options:");
-        Console.WriteLine("  -help|-h\t\tDisplay help.");
-        Console.WriteLine("  -path|-p\t\t(required) Enter the executable file.");
-        Console.WriteLine("  -schema|-s\t\t(required) Enter the Uri schema.");
-        Console.WriteLine("  --override|--o\t(optional) Allow updating the Uri Schema.");
-        Console.ReadLine();
-        return;
-    }
+    pathArg,
+    schemaArg,
+    updateArg,
+};
 
-    var path = (new ArgHelper(args)).GetValue("-p", "-path");
-    var schema = (new ArgHelper(args)).GetValue("-s", "-schema");
-    var @override = (new ArgHelper(args)).IsAvailable("--o", "--override");
+rootCommand.Description = "Register an Uri-schema to allow the start of an executable via a url.";
 
-    var registered = RegistryHelper.IsRegistered(schema);
-
-    if (!@override && !string.IsNullOrEmpty(registered))
-    {
-        throw new Exception($"Url-schema '{schema}' already existing. Please use '/override' argument to allow a replacement.");
-    }
-
-    RegistryHelper.RegisterScheme(schema, path);
-
-    Console.WriteLine($"Registered: schema={schema}; path={path};");
-}
-catch (Exception ex)
+rootCommand.SetHandler((string path, string schema, bool update) =>
 {
-    Console.WriteLine($"Error: {ex.Message}");
-}
+    try
+    {
+        var registered = RegistryHelper.IsRegistered(schema);
+
+        if (!update && !string.IsNullOrEmpty(registered))
+        {
+            throw new Exception($"Url-schema '{schema}' already existing. Please use '--override' argument to allow a replacement.");
+        }
+
+        RegistryHelper.RegisterScheme(schema, path);
+
+        Console.WriteLine($"Registered: schema='{schema}'; path='{path}';");
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Error: {ex.Message}");
+    }
+}, pathArg, schemaArg, updateArg);
+
+// Parse the incoming args and invoke the handler
+rootCommand.Invoke(args);
